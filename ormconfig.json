@@ -1,0 +1,10 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5555,
+  "username": "postgres",
+  "password": "postgres",
+  "database": "shopmanagement",
+  "entities": ["dist/**/*.entity{.ts,.js}"],
+  "synchronize": true
+}
