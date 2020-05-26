@@ -8,9 +8,13 @@ import {
   Post,
   Delete,
   Put,
+  UploadedFile,
+  UseInterceptors,
+  Res,
 } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 import { ProductsService } from './products.service';
 import { Product } from './product.entity';
@@ -19,6 +23,12 @@ import { CreateProductDto } from './dtos/create-product-dto';
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
+
+  @Post('/upload')
+  @UseInterceptors(FileInterceptor('File'))
+  uploadFile(@UploadedFile() file, @Res() res) {
+    return this.productsService.uploadFile(file, res);
+  }
 
   @Get()
   getProducts(): Promise<Product[]> {
